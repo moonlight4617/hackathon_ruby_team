@@ -4,4 +4,9 @@ class HomeController < ApplicationController
     @posts = Post.all
     @graph = Post.group(:time).average(:congestion_level)
   end
+
+  def about
+    @posts = Post.limit(4)
+    @graph = Post.group(:time).average(:congestion_level)
+  end
 end

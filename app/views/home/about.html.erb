@@ -1,0 +1,48 @@
+<div class="container">
+  <h4 class="mt-4">電車アプリとは</h4>
+  <p class="mb-4">電車の混み具合を確認・投稿できるアプリです。<br>ユーザーからの投稿を集めて、時間ごとや曜日ごとの混み具合をデータ化して表示します。
+  <div class="row">
+    <div class="col-8 bgred pr-4">
+      <h5 class="text-center">Congestion_level graph</h5>
+      <%= column_chart @graph,
+                 id: 'total-attendance-chart',
+                 xtitle: "時間帯", 
+                 ytitle: "混雑状況",
+                 colors: ['#06b'] 
+            %>
+    </div>
+    <div class="col-4">
+      グラフで分かりやすく表示されるので、お気に入り駅を登録しておけば、ひと目で混み具合が分かります！<br><br>
+      混み具合は５段階で表され、1時間ごとに表示されるので、通勤時間やお出かけの際にチェックすると便利です！
+      <br><br>
+      ーー混雑アイコン使って、分かりやすくーー
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      ユーザーからのリアルタイムな投稿も見れるので、直近の電車の状況が分かります。
+    </div>
+    <div class="col-6 bgred">
+      <h5 class="page-header text-center">投稿一覧</h5>
+      <ul class="list-group">
+        <% @posts.each do |post| %>
+        <li class="list-group-item">
+          <div>名前:<%= post.user.name %></div>
+          <div><%= post.direction %>方面&ensp;
+            駅名:<%= post.station.station_name %>&ensp;
+            <%= post.time %>時頃</div>
+          <div>コメント:<%= post.comment %>&ensp;
+            混雑度:<%= post.congestion_level %></div>
+        </li>
+        <% end %>
+        <li class="list-group-item">・・・</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <h5 class="text-center">会員登録して、投稿してみませんか？</h5>
+  </div>
+  <div class="row">
+    <%= button_to "会員登録", new_user_registration_path, class: "btn btn-primary mb-4" %>
+  </div>
+</div>
